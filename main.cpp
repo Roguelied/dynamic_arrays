@@ -21,6 +21,8 @@ int main() {
     Array<int> arr1(10, 9);
     cout << arr1 << '\n';
     arr = arr1;
-    cout << arr << '\n';
+    Array<int> newarr = arr1;
+    newarr.add(12);
+    cout << newarr << '\n';
     return 0;
 }

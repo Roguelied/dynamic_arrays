@@ -32,12 +32,23 @@ private:
 
 public:
     Array() : arr(nullptr), size(0) {}
-    explicit Array(size_t size) : arr(new T[size]), size(size) {}
+
+    Array(size_t size) : arr(new T[size]), size(size) {}
+
+    Array(const Array &array) {
+        this->arr = new T[array.size];
+        this->size = array.size;
+        for (int i = 0; i < size; i++) {
+            arr[i] = array.arr[i];
+        }
+    }
+
     Array(size_t size, T item) {
         this->size = size;
-        arr = new T(this->size);
-        for (size_t i = 0; i < this->size; i++) { arr[i] = item; }
+        arr = new T[size];
+        for (size_t i = 0; i < size; i++) { arr[i] = item; }
     }
+
     ~Array() {
         for (size_t i = 0; i < size; i++) { arr[i] = 0; }
         delete[] arr;
@@ -78,12 +89,14 @@ public:
         } return -1;
     }
 
+
+
     Array& operator = (const Array & other) {
         if (arr == other.arr) {
             return *this;
         }
-        resize_to(other.size);
-        for (size_t i = 0; i < size; i++) {
+        this->resize_to(other.size);
+        for (size_t i = 0; i < other.size; i++) {
             arr[i] = other.arr[i];
         }
         return *this;
